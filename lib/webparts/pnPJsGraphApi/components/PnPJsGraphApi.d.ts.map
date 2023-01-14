@@ -1,0 +1,1 @@
+{"version":3,"file":"PnPJsGraphApi.d.ts","sourceRoot":"","sources":["../../../../src/webparts/pnPJsGraphApi/components/PnPJsGraphApi.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAE/B,OAAO,EAAE,mBAAmB,EAAE,MAAM,uBAAuB,CAAC;AAK5D,MAAM,CAAC,OAAO,OAAO,aAAc,SAAQ,KAAK,CAAC,SAAS,CAAC,mBAAmB,EAAE,EAAE,CAAC;IAC1E,MAAM,IAAI,KAAK,CAAC,YAAY,CAAC,mBAAmB,CAAC;CAwCzD"}

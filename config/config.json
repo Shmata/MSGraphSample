@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "pn-p-js-graph-api-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/pnPJsGraphApi/PnPJsGraphApiWebPart.js",
+          "manifest": "./src/webparts/pnPJsGraphApi/PnPJsGraphApiWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PnPJsGraphApiWebPartStrings": "lib/webparts/pnPJsGraphApi/loc/{locale}.js"
+  }
+}
