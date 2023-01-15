@@ -12,7 +12,7 @@ import * as strings from 'PnPJsGraphApiWebPartStrings';
 import PnPJsGraphApi from './components/PnPJsGraphApi';
 import { IPnPJsGraphApiProps } from './components/IPnPJsGraphApiProps';
 import { MSGraphClient } from '@microsoft/sp-http';
-
+import { Dialog, IAlertOptions,IPromptOptions } from '@microsoft/sp-dialog';
 
 export interface IPnPJsGraphApiWebPartProps {
   description: string;
@@ -44,14 +44,20 @@ export default class PnPJsGraphApiWebPart extends BaseClientSideWebPart<IPnPJsGr
               <div>
                   <h3>Welcome to SharePoint Framework!</h3>
                   <p>
-                      The SharePoint Framework (SPFx) is a extensibility model for Microsoft Viva, Microsoft Teams and SharePoint. It's the easiest way to extend Microsoft 365 with automatic Single Sign On, automatic hosting and industry standard tooling.
+                      List of all users email:
                   </p>
               </div>
               <div id="spListContainer" />
-            </div>`;
+            </div>
+            `;
 
             // List the latest emails based on what we got from the Graph
             this._renderEmailList(users.value);
+            // this.domElement.getElementsByClassName('showAlert')[0]
+            //   .addEventListener('click', ()=>{
+            //     this._showAlert();
+            //   });
+          
         });
     });
 
@@ -71,8 +77,27 @@ export default class PnPJsGraphApiWebPart extends BaseClientSideWebPart<IPnPJsGr
     ReactDom.render(element, this.domElement);
   }
 
+  private _showAlert =():void =>{
+    const options : IAlertOptions = {
+      confirmOpen : this._confirmedOpen
+    }
+
+    Dialog.alert('You clicked on the button', options).then(()=>{
+      console.log('dialog is closed');
+    })
+  }
+  private _showPropmt = ():void =>{
+    Dialog.prompt('What is your email address ?');
+  }
+
+  private _confirmedOpen = ():boolean =>{
+    const decision:boolean = true;
+
+    return decision
+  }
+
   private _renderEmailList(clinets: any[]): void {
-    console.log(clinets);
+    //console.log(clinets);
     let html: string = '';
     // for (let index = 0; index < clinets.length; index++) {
     //   html += `<p class="welcome">Email ${index + 1} - ${escape(clinets[index].mail)}</p>`;
@@ -83,6 +108,13 @@ export default class PnPJsGraphApiWebPart extends BaseClientSideWebPart<IPnPJsGr
     // Add the emails to the placeholder
     const listContainer: Element = this.domElement.querySelector('#spListContainer');
     listContainer.innerHTML = html;
+
+    const mails = this.domElement.querySelectorAll('welcome');
+    mails.forEach( mail =>{
+      mail.addEventListener('click', ()=>{
+        this._showPropmt();
+      });  
+    })  
   }
 
   private _getEnvironmentMessage(): string {
