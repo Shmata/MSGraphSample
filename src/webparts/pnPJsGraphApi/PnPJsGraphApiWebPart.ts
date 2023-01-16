@@ -30,6 +30,10 @@ export default class PnPJsGraphApiWebPart extends BaseClientSideWebPart<IPnPJsGr
   }
 
   public render(): void {
+
+
+
+
     this.context.msGraphClientFactory
     .getClient()
     .then((client: MSGraphClient): void =>{
@@ -37,6 +41,7 @@ export default class PnPJsGraphApiWebPart extends BaseClientSideWebPart<IPnPJsGr
         client
         //.api('/me/messages')
         .api('/users')
+        .select('mail')
         .get((error, users: any, rawResponse?: any)=>{
           console.log(error, users, rawResponse);  
           this.domElement.innerHTML = `
@@ -61,6 +66,23 @@ export default class PnPJsGraphApiWebPart extends BaseClientSideWebPart<IPnPJsGr
         });
     });
 
+    this.context.msGraphClientFactory.getClient().then((cl:MSGraphClient)=>{
+      cl.api('/users/AdeleV@5jsdrp.onmicrosoft.com').patch(
+        {
+          "extensions": [
+              {
+                  "@odata.type": "#microsoft.graph.openTypeExtension",
+                  "extensionName": "extension_4cc746ec727a4128b78b9c87b5b8b672_Birthday",
+                  "Birthday": {
+                      "dateTime": "2000-01-17T00:00:00Z",
+                      "timeZone": "UTC"
+                  }
+              }
+          ]
+        }
+              
+      )
+    })
 
 
     const element: React.ReactElement<IPnPJsGraphApiProps> = React.createElement(
@@ -103,18 +125,18 @@ export default class PnPJsGraphApiWebPart extends BaseClientSideWebPart<IPnPJsGr
     //   html += `<p class="welcome">Email ${index + 1} - ${escape(clinets[index].mail)}</p>`;
     // }
     clinets.map((val,key)=>{
-      html += `<p id='${key}' class="welcome">Email: ${val.mail} </p> <br />`;
+      html += `<p id='${key}' on-click='${this._showPropmt()}' class="welcome">Email: ${val.mail} </p> <br />`;
     })
     // Add the emails to the placeholder
     const listContainer: Element = this.domElement.querySelector('#spListContainer');
     listContainer.innerHTML = html;
 
-    const mails = this.domElement.querySelectorAll('welcome');
-    mails.forEach( mail =>{
-      mail.addEventListener('click', ()=>{
-        this._showPropmt();
-      });  
-    })  
+    // const mails = this.domElement.querySelectorAll('welcome');
+    // mails.forEach( mail =>{
+    //   mail.addEventListener('click', ()=>{
+    //     this._showPropmt();
+    //   });  
+    // })  
   }
 
   private _getEnvironmentMessage(): string {
