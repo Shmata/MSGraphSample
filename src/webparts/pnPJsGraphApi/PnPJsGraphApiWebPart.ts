@@ -37,7 +37,6 @@ export default class PnPJsGraphApiWebPart extends BaseClientSideWebPart<IPnPJsGr
     this.context.msGraphClientFactory
     .getClient()
     .then((client: MSGraphClient): void =>{
-        // get information about the current user from the Microsoft Graph
         client
         //.api('/me/messages')
         .api('/users')
@@ -99,15 +98,15 @@ export default class PnPJsGraphApiWebPart extends BaseClientSideWebPart<IPnPJsGr
     ReactDom.render(element, this.domElement);
   }
 
-  private _showAlert =():void =>{
-    const options : IAlertOptions = {
-      confirmOpen : this._confirmedOpen
-    }
+  // private _showAlert =():void =>{
+  //   const options : IAlertOptions = {
+  //     confirmOpen : this._confirmedOpen
+  //   }
 
-    Dialog.alert('You clicked on the button', options).then(()=>{
-      console.log('dialog is closed');
-    })
-  }
+  //   Dialog.alert('You clicked on the button', options).then(()=>{
+  //     console.log('dialog is closed');
+  //   })
+  // }
   private _showPropmt = ():void =>{
     Dialog.prompt('What is your email address ?');
   }
